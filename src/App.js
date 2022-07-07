@@ -1,25 +1,43 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { Login } from './Pages/login';
+import { ManiRoutes } from './Routes/routes';
+import { Navbar } from './Components/navbar';
+import { useTheme } from '@mui/system';
+import { useEffect } from 'react';
+import { useDispatch} from 'react-redux';
+import { useMediaQuery } from '@mui/material';
+import { setScreen } from './Redux/reducers/MediaqueryReducer';
+
+
 
 function App() {
+    const dispatch=useDispatch()
+
+
+    const theme=useTheme()
+    const small=useMediaQuery(theme.breakpoints.down("sm"))
+    const medium=useMediaQuery(theme.breakpoints.only("sm"))
+    const large=useMediaQuery(theme.breakpoints.up("md"))
+
+    useEffect(()=>{
+        if(small)
+        dispatch(setScreen("sx"))
+        else if(medium)
+        dispatch(setScreen("sm"))
+        else if(large)
+        dispatch(setScreen("lg"))
+       
+    },[small,medium,large])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+       {/* <Login/> */}
+       <Navbar/>
+      {/* <ManiRoutes/> */}
+     
     </div>
-  );
+  )
 }
 
 export default App;
