@@ -6,7 +6,9 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
 
-export const DropdownSm=()=>{
+export const DropdownSm=({setopenDrawer})=>{
+
+    
 
 
     return(
@@ -14,7 +16,7 @@ export const DropdownSm=()=>{
         <Grid container  sx={{backgroundColor:"#ffffff",m:0,height:"40px",border:"none"}}>
             <Grid item  sm={3} xs >
                 <Box sx={{display:'flex',justifyContent:'center'}}>
-                <ShoppingCartOutlinedIcon fontSize="large"  sx={{color:"#00081c"}}/>
+                <MenuOutlinedIcon fontSize="large"  sx={{color:"#00081c"}}  onClick={()=>setopenDrawer(true)}/>
                 </Box>
             </Grid>
             <Grid item  sm={3} xs >
@@ -29,7 +31,7 @@ export const DropdownSm=()=>{
             </Grid>
             <Grid item  sm={3} xs >
                 <Box sx={{display:'flex',justifyContent:'center'}}>
-                <MenuOutlinedIcon fontSize="large"  sx={{color:"#00081c"}}/>
+                <ShoppingCartOutlinedIcon fontSize="large"  sx={{color:"#00081c"}}/>
                 </Box>
             </Grid>
 

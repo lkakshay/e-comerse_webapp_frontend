@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 import { useMediaQuery } from '@mui/material';
 import { setScreen } from './Redux/reducers/MediaqueryReducer';
+import { Footer } from './Components/footer';
 
 
 
@@ -34,7 +35,9 @@ function App() {
     <div>
        {/* <Login/> */}
        <Navbar/>
+       
       {/* <ManiRoutes/> */}
+      <Footer/>
      
     </div>
   )

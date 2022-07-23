@@ -70,7 +70,7 @@ export const Navbar=()=>{
 
                 </Toolbar>
                 {openDrawer?<DrawerComponent setopenDrawer={setopenDrawer} openDrawer={openDrawer}/>:<></>}
-                {dimension.status?<DropdownSm/>:<DropdownLg/>  }
+                {dimension.status?<DropdownSm  setopenDrawer={setopenDrawer} />:<DropdownLg/>  }
                 
             </AppBar>
 
