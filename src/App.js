@@ -36,7 +36,7 @@ function App() {
        {/* <Login/> */}
        <Navbar/>
        
-      {/* <ManiRoutes/> */}
+      <ManiRoutes/>
       <Footer/>
      
     </div>
