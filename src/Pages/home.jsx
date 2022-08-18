@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useEffect,useState } from 'react';
 import { Trending } from '../Components/trending';
 import { Topten } from '../Components/topten';
+import { Category } from '../Components/catagory';
 
 const slideImages = [
   {
@@ -21,7 +22,7 @@ const slideImages = [
     caption: 'Slide 1'
   },
   {
-    url: "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Electronics/GW/Unrec/Heros/under_1999_Tallhero_3000x1200._CB634376407_.jpg",
+    url: "https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2022/BAU/ATFGW/light_unrec_AUG_3000x1200._CB629799070_.jpg",
     caption: 'Slide 1'
   },
   {
@@ -59,16 +60,15 @@ export const Home= () => {
           ))} 
         </Slide>
       </div>
+
+      <Category/>
       <Topten/>
-      <img style={{width:"100%",margin:'10px'}} src='https://cdn.shopify.com/s/files/1/0064/4435/1539/files/banner-custom-middle-1_ea59337b-c31d-4433-83d7-f0f2764ca227_1920x.jpg?v=1618802630'/>
+      <img style={{width:"100%"}} src='https://cdn.shopify.com/s/files/1/0064/4435/1539/files/banner-custom-middle-1_ea59337b-c31d-4433-83d7-f0f2764ca227_1920x.jpg?v=1618802630'/>
        <Trending/>
-       <img style={{width:"100%",margin:'10px'}} src='https://cdn.shopify.com/s/files/1/0064/4435/1539/files/banner-custom-home-2_1920x.png?v=1620189483'/>
+       <img style={{width:"100%"}} src='https://cdn.shopify.com/s/files/1/0064/4435/1539/files/banner-custom-home-2_1920x.png?v=1620189483'/>
       
     </React.Fragment>   
     )
 }
 
-const imgs=[,
-"https://images-eu.ssl-images-amazon.com/images/G/31/img19/Pets/April-22/DesktopTallhero_3000x1200_2._CB623843558_.jpg",
-"https://images-eu.ssl-images-amazon.com/images/G/31/img21/MI/Under1499_Tallhero_3000x1200._CB634138928_.jpg"]
 
