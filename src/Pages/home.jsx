@@ -4,7 +4,7 @@ import 'react-slideshow-image/dist/styles.css'
 import '../App';
 import { useSelector } from 'react-redux';
 import { useEffect,useState } from 'react';
-import { Trending } from '../Components/trending';
+import { Recent } from '../Components/recent';
 import { Topten } from '../Components/topten';
 import { Category } from '../Components/catagory';
 
@@ -64,8 +64,9 @@ export const Home= () => {
       <Category/>
       <Topten/>
       <img style={{width:"100%"}} src='https://cdn.shopify.com/s/files/1/0064/4435/1539/files/banner-custom-middle-1_ea59337b-c31d-4433-83d7-f0f2764ca227_1920x.jpg?v=1618802630'/>
-       <Trending/>
-       <img style={{width:"100%"}} src='https://cdn.shopify.com/s/files/1/0064/4435/1539/files/banner-custom-home-2_1920x.png?v=1620189483'/>
+      <img style={{width:"100%"}} src='https://cdn.shopify.com/s/files/1/0064/4435/1539/files/banner-custom-home-2_1920x.png?v=1620189483'/>
+
+       <Recent/>
       
     </React.Fragment>   
     )
