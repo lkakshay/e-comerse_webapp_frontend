@@ -7,6 +7,7 @@ import { useEffect,useState } from 'react';
 import { Recent } from '../Components/recent';
 import { Topten } from '../Components/topten';
 import { Category } from '../Components/catagory';
+import { Box } from '@mui/material';
 
 const slideImages = [
   {
@@ -48,8 +49,8 @@ export const Home= () => {
 
   },[screenSize])
     return (
-    <React.Fragment>
-      <div className="slide-container">
+    <Box sx={{ backgroundColor:"#ebf0f0"}}>
+      <div className="slide-container" style={{paddingTop:'20px'}}>
         <Slide duration={3600} transitionDuration={1800} autoplay={true}
         arrows={false} infinite={true} >
          {slideImages.map((slideImage, index)=> (
@@ -68,7 +69,7 @@ export const Home= () => {
 
        <Recent/>
       
-    </React.Fragment>   
+    </Box>   
     )
 }
 

@@ -1,27 +1,41 @@
-import React from "react"
-import { Product } from "../Components/product"
-import { Grid } from "@mui/material"
-let a=Array(30).fill(`1`)
-console.log(a)
+import React from "react";
+import { Product } from "../Components/product";
+import { Grid } from "@mui/material";
 
-export const Products=()=>{
-    return(
-        <React.Fragment>
+import { Sort } from "../Components/sort";
+import { Filter } from "../Components/filter";
+let a = Array(12).fill(`1`);
 
-            <Grid container spacing={2}>
-                <Grid item xs={0} md={0} lg={3} sx={{border:"1px solid black}"}}>
-                   <div>lk</div>
-                </Grid>
-                <Grid container xs={12} md={12} lg={9} sx={{border:"1px solid black}"}}>
-                { a.map((el)=>(
-               <Grid item xs={6} md={4} lg={3}>
-                 <Product/>
-               </Grid>
-            ))}
-                </Grid>
-                
+export const Products = () => {
+  return (
+    <React.Fragment>
+      <Grid container sx={{ backgroundColor: "#ebf0f0" }}>
+        <Grid item xs={12} sm={12} md={12} lg={2.5} sx={{ my: 1, px: 1 }}>
+          <Sort />
+          <Filter />
+        </Grid>
+        <Grid
+          container
+          xs={12}
+          md={12}
+          sm={12}
+          lg={9.5}
+          sx={{ backgroundColor: "white", my: 1 }}
+        >
+          {a.map((el) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={4}
+              lg={3}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              <Product />
             </Grid>
-           
-        </React.Fragment>
-    )
-}
+          ))}
+        </Grid>
+      </Grid>
+    </React.Fragment>
+  );
+};

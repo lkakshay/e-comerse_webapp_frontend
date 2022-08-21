@@ -1,34 +1,57 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import {Stack,Rating,Box } from '@mui/material';
 
 export const Product=()=>{
     return(
-        <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        alt="green iguana"
-        height="140"
-        image="https://m.media-amazon.com/images/I/51NqWEixtLL._SY450_.jpg"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-         
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
+ 
+      <Card
+        sx={{
+          width: "100%",
+          m: "5%",
+          boxShadow:
+            "rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px",
+          borderRadius: "0px",
+        }}
+      >
+        <img
+          style={{ width: "100%", height: "auto", aspectRatio: "4/3" }}
+          src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_8._SY116_CB655805757_.jpg"
+        />
+        <Stack spacing={1} sx={{ px: "7%", py: "3%" }}>
+          <Typography variant="h6">Lizard</Typography>
+          <Rating
+            name="half-rating-read"
+            defaultValue={2.5}
+            precision={0.5}
+            readOnly
+            size="small"
+          />
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography sx={{ fontWeight: "600" }} color="black">
+              ₹ 256
+            </Typography>
+            <Typography
+              sx={{
+                fontWeight: "00",
+                fontSize: "13px",
+                textDecoration: "line-through",
+                ml: "7%",
+              }}
+              color="black"
+            >
+              ₹400
+            </Typography>
+          </Box>
+        </Stack>
+        <CardActions sx={{display:'flex',justifyContent:'space-evenly',px:'2%'}}>
+          <Button  sx={{width:"50%",backgroundColor:"#00081c"}} size="small" variant='contained'>BUY NOW</Button>
+          <Button sx={{width:"50%",backgroundColor:"#00081c"}} size="small" variant='contained'>ADD TO CART</Button>
+        </CardActions>
+      </Card>
   );
     
 }
