@@ -22,7 +22,7 @@ export const Product=()=>{
           src="https://images-eu.ssl-images-amazon.com/images/G/31/img21/PC/Computers/GW/DBQC/D21343116_IN_CEPC_BAU_GW_graphics_March21_dbqc0.5x_8._SY116_CB655805757_.jpg"
         />
         <Stack spacing={1} sx={{ px: "7%", py: "3%" }}>
-          <Typography variant="h6">Lizard</Typography>
+          <Typography sx={{fontSize:"16px",fontWeight:500}}>SAMSUNG 6.5 kg 5 Star Inverter with Diamond dd</Typography>
           <Rating
             name="half-rating-read"
             defaultValue={2.5}
@@ -47,9 +47,9 @@ export const Product=()=>{
             </Typography>
           </Box>
         </Stack>
-        <CardActions  sx={{display:'flex',justifyContent:'space-evenly',px:'2%'}}>
-          <Button  sx={{width:"50%",backgroundColor:"#00081c"}} size="small" variant='contained'>BUY NOW</Button>
-          <Button sx={{width:"50%",backgroundColor:"#00081c"}} size="small" variant='contained'>ADD TO CART</Button>
+        <CardActions  sx={{display:'flex',justifyContent:'space-evenly'}}>
+          <Button  sx={{width:"50%",backgroundColor:"#00081c",fontSize:'10px',py:'5%',fontWeight:'600'}} size="small" variant='contained'>BUY NOW</Button>
+          <Button sx={{width:"50%",backgroundColor:"#00081c",fontSize:'10px',py:'5%',fontWeight:'600'}} size="small" variant='contained'>ADD TO CART</Button>
         </CardActions>
       </Card>
   );

@@ -12,28 +12,32 @@ export const Products = () => {
       <Grid container sx={{ backgroundColor: "#ebf0f0" }}>
         <Grid item xs={12} sm={12} md={12} lg={2.5} sx={{ my: 1, px: 1 }}>
           <Sort />
-          <Filter />
+          <Filter  />
         </Grid>
         <Grid
-          container
+          item
           xs={12}
           md={12}
           sm={12}
           lg={9.5}
           sx={{ backgroundColor: "white", my: 1 }}
         >
-          {a.map((el) => (
+          <Grid container >
+          {a.map((el,i) => (
             <Grid
               item
+
+              key={i}
               xs={12}
               sm={6}
               md={4}
               lg={3}
               sx={{ display: "flex", justifyContent: "center" }}
             >
-              <Product />
+              <Product id={i} />
             </Grid>
           ))}
+          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>
