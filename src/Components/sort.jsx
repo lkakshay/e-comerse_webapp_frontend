@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 
 export const Sort = () => {
   const theme = createTheme({
@@ -21,11 +22,15 @@ export const Sort = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "white", p: 1, pt: 3 }}>
+    <Box sx={{ backgroundColor: "white", p: 1 }}>
+      <Typography sx={{ fontSize: "14px", fontWeight: "bold" }}>
+        SORT
+      </Typography>
       <ThemeProvider theme={theme}>
-        <FormControl focused margin="normal" size="small" fullWidth>
+        <FormControl
+         sx={{borderBottom:"1px solid #00081c"}} variant="standard" margin="normal" size="small" fullWidth>
           <InputLabel color="primary" id="demo-simple-select-label">
-            SORT BY
+            Sort By
           </InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -34,7 +39,7 @@ export const Sort = () => {
             label="SORT BY"
             onChange={handleChange}
           >
-            <MenuItem  value={10}>Popularity</MenuItem>
+            <MenuItem value={10}>Popularity</MenuItem>
 
             <MenuItem value={20}>Price Low to High</MenuItem>
             <MenuItem value={30}>Price High to Low</MenuItem>

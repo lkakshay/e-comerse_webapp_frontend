@@ -47,7 +47,7 @@ export const Product=()=>{
             </Typography>
           </Box>
         </Stack>
-        <CardActions sx={{display:'flex',justifyContent:'space-evenly',px:'2%'}}>
+        <CardActions  sx={{display:'flex',justifyContent:'space-evenly',px:'2%'}}>
           <Button  sx={{width:"50%",backgroundColor:"#00081c"}} size="small" variant='contained'>BUY NOW</Button>
           <Button sx={{width:"50%",backgroundColor:"#00081c"}} size="small" variant='contained'>ADD TO CART</Button>
         </CardActions>
