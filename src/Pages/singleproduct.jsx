@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import { Product } from "../Components/product";
+import { Rating } from "@mui/material";
 
 export const Singleproduct = () => {
   return (
@@ -18,27 +18,32 @@ export const Singleproduct = () => {
           sm={12}
           md={12}
           lg={6}
-          sx={{ my: 1, px: 1, backgroundColor: "white", height: "300px" ,border:'2px solid black'}}
+          sx={{
+            my: 1,
+            px: 1,
+            backgroundColor: "white",
+            height: "300px",
+            border: "2px solid black",
+          }}
         ></Grid>
-        <Grid
-          container
-          xs={12}
-          md={12}
-          sm={12}
-          lg={6}
-          sx={{  my: 1,pl:1 }}
-        >
-          <Box
-            sx={{ width: "100%",p:2, bgcolor: "background.paper" }}
-          >
+        <Grid container xs={12} md={12} sm={12} lg={6} sx={{ my: 1, pl: 1 }}>
+          <Box sx={{ width: "100%", p: 2, bgcolor: "background.paper" }}>
             <Box sx={{ my: 1, mx: 1 }}>
-              <Grid container alignItems="center">
-                <Grid item xs>
-                  <Typography gutterBottom variant="h4" component="div">
-                    Toothbrush
-                  </Typography>
-                </Grid>
-              </Grid>
+              <Typography
+                gutterBottom
+                sx={{ fontSize: "22px", fontWeight: "900" }}
+              >
+                Toothbrush
+              </Typography>
+
+              <Rating
+                name="half-rating-read"
+                defaultValue={2.5}
+                precision={0.5}
+                readOnly
+                size="medium"
+              />
+
               <Typography color="text.secondary" variant="body2">
                 Pinstriped cornflower blue cotton blouse takes you on a walk to
                 the park or just down the hall.
