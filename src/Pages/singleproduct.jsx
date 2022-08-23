@@ -13,10 +13,8 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { Rating } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import { borderRadius } from "@mui/system";
 
-let data = new Array(4).fill(0);
+let data = new Array(3).fill(0);
 export const Singleproduct = () => {
   return (
     <React.Fragment>
@@ -32,12 +30,45 @@ export const Singleproduct = () => {
             px: 1,
           }}
         >
-          <div
-            style={{
+          <Box
+            sx={{
               backgroundColor: "white",
-              height: "300px",
             }}
-          ></div>
+          >
+            <Box
+              sx={{
+                backgroundColor: "white",
+                px: "25%",
+                py: "5%",
+              }}
+            >
+              <img
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  aspectRatio: 1,
+                }}
+                src="https://m.media-amazon.com/images/I/41k73fSAoZL._UL1440_.jpg"
+                alt=""
+              />
+            </Box>
+
+            <Grid container sx={{p:1}}>
+              {data?.map((el, i) => (
+                <Grid item xs={4} sx={{p:1}}>
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      aspectRatio: 1,
+                    }}
+                    src="https://m.media-amazon.com/images/I/41k73fSAoZL._UL1440_.jpg"
+                    alt=""
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         </Grid>
         <Grid container xs={12} md={12} sm={12} lg={6} sx={{ py: 1, px: 1 }}>
           <Box sx={{ width: "100%", p: "3%", bgcolor: "background.paper" }}>
@@ -126,23 +157,6 @@ export const Singleproduct = () => {
                   ))}
                 </RadioGroup>
               </FormControl>
-            </Box>
-
-            <Box sx={{ m: 2 }}>
-              <Button
-                variant="outline"
-                sx={{borderRadius:'0px' ,px:0 , fontSize:'16px',fontWeight:"900"}}
-              >
-                -
-              </Button>
-              <Button
-              variant="outline"
-               sx={{borderRadius:'0px' ,px:0 , fontSize:'16px',fontWeight:"900"}}>
-                1</Button>
-              <Button
-              variant="outline"
-               sx={{borderRadius:'0px' ,px:0 , fontSize:'16px',fontWeight:"900"}}>
-                +</Button>
             </Box>
             <Box sx={{ mt: 3, m: 1, mb: 1 }}>
               <Button
