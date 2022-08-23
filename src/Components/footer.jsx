@@ -18,12 +18,7 @@ export const Footer=()=>{
     return(
             
                 
-                    <Box  sx={{backgroundColor:"#00081c",p:1,my:1}}>
-                         <Typography textAlign="center" sx={{fontSize:"18px" ,fontWeight:"900",px:1.5,py:1,color:"#ffffff",}}>
-                         CONTACT US
-                        </Typography>  
-                    
-                   
+                    <Box  sx={{backgroundColor:"#00081c",p:1,my:1}}>           
                     <Box sx={{display:"flex",justifyContent:"center",my:1,gap:"20px"}}>
                         <a href="https://www.linkedin.com/in/akshay-lk-a62080230/" target="_blank" rel="noreferrer noopener" >
                             <LinkedInIcon fontSize="large" sx={{color:"#ffffff"}}/>
@@ -40,7 +35,7 @@ export const Footer=()=>{
                         </a>
                     </Box>
                     <Typography textAlign="center" sx={{fontSize:"14px" ,fontWeight:"900",px:1.5,py:1,color:"#ffffff",}}>
-                    © 2021 E.coM All Rights Reserved.
+                    © akshay lk
                         </Typography>  
 
                 </Box>

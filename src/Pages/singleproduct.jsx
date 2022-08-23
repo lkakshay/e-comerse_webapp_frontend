@@ -13,8 +13,9 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { Rating } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import {Recent} from '../Components/recent'
 
-let data = new Array(3).fill(0);
+let data = new Array(4).fill(0);
 export const Singleproduct = () => {
   return (
     <React.Fragment>
@@ -55,7 +56,7 @@ export const Singleproduct = () => {
 
             <Grid container sx={{p:1}}>
               {data?.map((el, i) => (
-                <Grid item xs={4} sx={{p:1}}>
+                <Grid item xs={3} sx={{p:1}}>
                   <img
                     style={{
                       width: "100%",
@@ -176,6 +177,8 @@ export const Singleproduct = () => {
           </Box>
         </Grid>
       </Grid>
+
+      <Recent/>
     </React.Fragment>
   );
 };
