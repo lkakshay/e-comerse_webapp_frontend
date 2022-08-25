@@ -21,21 +21,21 @@ export const Footer=()=>{
                     <Box  sx={{backgroundColor:"#00081c",p:1,my:1}}>           
                     <Box sx={{display:"flex",justifyContent:"center",my:1,gap:"20px"}}>
                         <a href="https://www.linkedin.com/in/akshay-lk-a62080230/" target="_blank" rel="noreferrer noopener" >
-                            <LinkedInIcon fontSize="large" sx={{color:"#ffffff"}}/>
+                            <LinkedInIcon fontSize="medium" sx={{color:"#ffffff"}}/>
                         </a>
                         <a href="https://github.com/lkakshay" target="_blank" rel="noreferrer noopener">
                             
-                            <GitHubIcon fontSize="large" sx={{color:"#ffffff"}}/>
+                            <GitHubIcon fontSize="medium" sx={{color:"#ffffff"}}/>
                         </a>
                         <a href="mailto:connectme.lkakshay@gmail.com" target="_blank" rel="noreferrer noopener" >
-                            <MailOutlineRoundedIcon fontSize="large" sx={{color:"#ffffff"}}/>
+                            <MailOutlineRoundedIcon fontSize="medium" sx={{color:"#ffffff"}}/>
                         </a>
                         <a href="tel:+916282676712" target="_blank" rel="noreferrer noopener">
-                            <LocalPhoneRoundedIcon fontSize="large" sx={{color:"#ffffff"}}/>
+                            <LocalPhoneRoundedIcon fontSize="medium" sx={{color:"#ffffff"}}/>
                         </a>
                     </Box>
-                    <Typography textAlign="center" sx={{fontSize:"14px" ,fontWeight:"900",px:1.5,py:1,color:"#ffffff",}}>
-                    © akshay lk
+                    <Typography textAlign="center" sx={{fontSize:"14px" ,fontWeight:"900",px:1.5,color:"#ffffff",}}>
+                    © AKSHAY LK
                         </Typography>  
 
                 </Box>
