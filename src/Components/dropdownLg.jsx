@@ -8,8 +8,8 @@ const data=["MOBILE","FASHION","ELECTRONICS","HOME","SPORTS","BEAUTY","TOYS & BA
 export const DropdownLg=()=>{
 
    const [heading ,setHeading]=useState([
-    {name:"MEN",display:"none",border:"none",subs:["Mens Clothing","Watches","Mens Sports","Footwear"]},
-    {name:"WOMEN",display:"none",border:"none",subs:["Women Clothing","Watches","Mens Sports","Footwear"]},
+    {name:"Clothing",display:"none",border:"none",subs:["Mens Clothing","Watches","Mens Sports","Footwear"]},
+    {name:"Footwear",display:"none",border:"none",subs:["Women Clothing","Watches","Mens Sports","Footwear"]},
     {name:"KIDS",display:"none",border:"none",subs:["Boys Clothing ","Girls Clothing","Footwear","Toys","Accessories"]},
     {name:"Electronics",display:"none",border:"none",subs:["Mobile","Laptop","Smartwatches","Tablet","Earphones"]},
     {name:"SPORTS",display:"none",border:"none",subs:["Sports shoes","Sportswear","Sports Gear","Supplements"]},

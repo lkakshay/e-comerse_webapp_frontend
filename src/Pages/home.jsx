@@ -2,12 +2,13 @@ import React from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import '../App';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect,useState } from 'react';
 import { Recent } from '../Components/recent';
 import { Topten } from '../Components/topten';
 import { Category } from '../Components/catagory';
 import { Box } from '@mui/material';
+import { postAuthData } from '../Redux/reducers/authReducer';
 
 const slideImages = [
   {
@@ -48,6 +49,16 @@ export const Home= () => {
     setdimension({...dimension,sliderH:"80px"})
 
   },[screenSize])
+const dispatch=useDispatch()
+
+
+
+useEffect(()=>{
+
+  dispatch(postAuthData())
+
+},[])
+
     return (
     <Box sx={{ backgroundColor:"#ebf0f0"}}>
       <div className="slide-container" style={{paddingTop:'20px'}}>
