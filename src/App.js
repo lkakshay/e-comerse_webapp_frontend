@@ -33,7 +33,7 @@ function App() {
   
   return (
     <div>
-       {/* <Login/> */}
+       <Login/>
        <Navbar/>
        
       <ManiRoutes/>

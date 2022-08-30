@@ -5,9 +5,12 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect,useState } from 'react';
 import { Grid, TextField } from '@mui/material';
+import { closeLoginPopUP } from '../Redux/reducers/authReducer';
+
+
 
 
 
@@ -16,15 +19,16 @@ import { Grid, TextField } from '@mui/material';
 export const  Login =()=>{
 
   const screenSize=useSelector((state)=>state.MediaqueryReducer.screenSize)
-  
+  const loginPopUp=useSelector((state)=>state.authReducer.loginPopUp)
+  const dispatch=useDispatch()
 
 
   const [dimension,setdimension]=useState({width:"",htype:"h3"})
-  const [user,setUser]=useState(true)
+  const [user,setUser]=useState(false)
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+
+  const handleClose = () => dispatch(closeLoginPopUP());
 
   const style = {
     position: 'absolute',
@@ -51,11 +55,10 @@ export const  Login =()=>{
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={open}
+        open={loginPopUp}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -63,7 +66,7 @@ export const  Login =()=>{
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={loginPopUp}>
           <Box sx={style}>
             {user?(
              <Box>
