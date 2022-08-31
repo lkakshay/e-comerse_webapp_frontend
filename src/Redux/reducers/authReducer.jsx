@@ -11,6 +11,21 @@ const postAuthData = createAsyncThunk("api/login", async (data) => {
     .catch((err) => console.log(err));
 });
 
+const createAuthData = createAsyncThunk("api/register", async (data) => {
+
+  return API.post("register",data)
+    .then((res) => {
+     console.log('res',res);
+    })
+    .catch((err) => {
+
+      console.log(err)
+       if('err',err.response.status===444){
+        return err.response.data[0]
+       }
+    });
+});
+
 const authInfoSlice = createSlice({
   name: "auth",
   initialState: {
@@ -33,7 +48,7 @@ const authInfoSlice = createSlice({
 });
 
 export const { openLoginPopUP,closeLoginPopUP } = authInfoSlice.actions;
-export { postAuthData };
+export { postAuthData,createAuthData };
 export default authInfoSlice.reducer;
 
 // let obj={}
