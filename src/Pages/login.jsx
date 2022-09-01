@@ -36,13 +36,21 @@ export const Login = () => {
             show: true,
             error: false,
           });
+          setTimeout(()=>{
+            setUser(false)
+          },2000);
+          
+          
           return;
         }
       }
 
       setvalidation({ ...validation, msg: payload, show: true, error: true });
+      
     });
   };
+  
+  
 
   const handleClose = () => dispatch(closeLoginPopUP());
 
