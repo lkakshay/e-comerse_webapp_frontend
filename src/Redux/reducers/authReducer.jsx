@@ -12,17 +12,19 @@ const postAuthData = createAsyncThunk("api/login", async (data) => {
 });
 
 const createAuthData = createAsyncThunk("api/register", async (data) => {
-
-  return API.post("register",data)
+  return API.post("register", data)
     .then((res) => {
-     console.log('res',res);
+      return "success";
     })
     .catch((err) => {
+        console.log(err)
+      if (("err", err.response.status === 422)) {
+        if (err.response.data.error.msg === "user already exist")
+        return "user already exist";
 
-      console.log(err)
-       if('err',err.response.status===444){
-        return err.response.data[0]
-       }
+        return `invalid ${err.response.data.error.param}`;
+      }
+      return;
     });
 });
 
@@ -44,11 +46,21 @@ const authInfoSlice = createSlice({
       state.loginPopUp = false;
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    [createAuthData.pending]: (state, a) => {
+      state.isLoading = true;
+    },
+    [createAuthData.fulfilled]: (state, a) => {
+      state.isLoading = false;
+    },
+    [createAuthData.rejected]: (state, a) => {
+      state.isLoading = false;
+    },
+  },
 });
 
-export const { openLoginPopUP,closeLoginPopUP } = authInfoSlice.actions;
-export { postAuthData,createAuthData };
+export const { openLoginPopUP, closeLoginPopUP } = authInfoSlice.actions;
+export { postAuthData, createAuthData };
 export default authInfoSlice.reducer;
 
 // let obj={}

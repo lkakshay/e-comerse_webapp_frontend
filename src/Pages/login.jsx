@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Grid, TextField } from "@mui/material";
 import { closeLoginPopUP } from "../Redux/reducers/authReducer";
 import { createAuthData } from "../Redux/reducers/authReducer";
+import Alert from "@mui/material/Alert";
 
 export const Login = () => {
   const screenSize = useSelector((state) => state.MediaqueryReducer.screenSize);
@@ -18,14 +19,30 @@ export const Login = () => {
 
   const [dimension, setdimension] = useState({ width: "", htype: "h3" });
   const [user, setUser] = useState(false);
+  const [validation, setvalidation] = useState("");
 
-  const [signUpData, setSingnUpData] = useState({});
-  const handleSignUp=()=>{
-    dispatch(createAuthData(signUpData))
-    .then((res)=>console.log('ressucc',res))
-    .catch((res)=>console.log('reserr',res))
-  }
- 
+  const [signUpData, setSingnUpData] = useState({
+    error: false,
+    msg: "",
+    show: false,
+  });
+  const handleSignUp = () => {
+    dispatch(createAuthData(signUpData)).then(({ payload }) => {
+      if (payload === "success") {
+        {
+          setvalidation({
+            ...validation,
+            msg: payload,
+            show: true,
+            error: false,
+          });
+          return;
+        }
+      }
+
+      setvalidation({ ...validation, msg: payload, show: true, error: true });
+    });
+  };
 
   const handleClose = () => dispatch(closeLoginPopUP());
 
@@ -129,10 +146,26 @@ export const Login = () => {
                   />
                 </Grid>
 
+                {validation.show ? (
+                  <div style={{marginTop:'10px'}}>
+                    {validation.error ? (
+                      <Alert severity="warning">
+                        {validation.msg}
+                      </Alert>
+                    ) : (
+                      <Alert severity="success">
+                        Registration Successfull
+                      </Alert>
+                    )}
+                  </div>
+                ) : (
+                  <></>
+                )}
+
                 <Button
-                onClick={handleSignUp}
+                  onClick={handleSignUp}
                   sx={{ mt: 3, mb: 3, backgroundColor: "#00081c" }}
-                  color="success"
+                  color={!validation.error?"success":'error'}
                   variant="contained"
                   fullWidth
                   size="large"
