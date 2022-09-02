@@ -5,13 +5,12 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import { openLoginPopUP } from "../Redux/reducers/authReducer";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LoginIcon from "@mui/icons-material/Login";
 
 export const DropdownSm = ({ setopenDrawer }) => {
   const dispatch = useDispatch();
   const authStatus = useSelector((state) => state.authReducer.authStatus);
-
 
   return (
     <React.Fragment>
@@ -33,7 +32,7 @@ export const DropdownSm = ({ setopenDrawer }) => {
             />
           </Box>
         </Grid>
-        
+
         <Grid item sm={3} xs>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <SearchOutlinedIcon fontSize="large" sx={{ color: "#00081c" }} />
@@ -49,8 +48,11 @@ export const DropdownSm = ({ setopenDrawer }) => {
         </Grid>
         <Grid item sm={3} xs>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            {authStatus?(
-              <AccountCircleIcon fontSize="large" sx={{ color: "#00081c" }} />
+            {authStatus ? (
+              <AccountCircleOutlinedIcon
+                fontSize="large"
+                sx={{ color: "#00081c" }}
+              />
             ) : (
               <LoginIcon
                 onClick={() => dispatch(openLoginPopUP())}

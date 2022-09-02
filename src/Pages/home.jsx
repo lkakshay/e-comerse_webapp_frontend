@@ -39,6 +39,8 @@ const slideImages = [
 
 export const Home= () => {
   const screenSize=useSelector((state)=>state.MediaqueryReducer.screenSize)
+
+  // useSelector((state)=>console.log(state.authReducer))
   const [dimension,setdimension]=useState({sliderH:""})
   useEffect(()=>{
     if(screenSize==="lg")

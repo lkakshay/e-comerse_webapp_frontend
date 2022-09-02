@@ -2,15 +2,15 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import API from "../../api/config";
 
 const postAuthData = createAsyncThunk("api/login", async (data) => {
-  console.log('data',data);
+  console.log("data", data);
   return API.post("login", data)
     .then((res) => {
-      res.data.status=200
-      return res.data
+      res.data.status = 200;
+      return res.data;
     })
     .catch(() => {
-      const payload={status:401}
-      return payload
+      const payload = { status: 401 };
+      return payload;
     });
 });
 
@@ -49,22 +49,25 @@ const authInfoSlice = createSlice({
     },
   },
   extraReducers: {
-    [createAuthData.pending]: (state, a) => {
+    [createAuthData.pending]: (state) => {
       state.isLoading = true;
     },
-    [createAuthData.fulfilled]: (state, a) => {
+    [createAuthData.fulfilled]: (state) => {
       state.isLoading = false;
     },
-    [createAuthData.rejected]: (state, a) => {
+    [createAuthData.rejected]: (state) => {
       state.isLoading = false;
     },
-    [postAuthData.pending]: (state, a) => {
+    [postAuthData.pending]: (state) => {
       state.isLoading = true;
     },
-    [postAuthData.fulfilled]: (state, a) => {
+    [postAuthData.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
+      state.authStatus = true;
+      state.userData.username = payload.name;
+      state.userData.token = payload.token;
     },
-    [postAuthData.rejected]: (state, a) => {
+    [postAuthData.rejected]: (state) => {
       state.isLoading = false;
     },
   },
