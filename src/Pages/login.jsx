@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Grid, TextField } from "@mui/material";
 import { closeLoginPopUP } from "../Redux/reducers/authReducer";
-import { createAuthData } from "../Redux/reducers/authReducer";
+import { createAuthData,postAuthData } from "../Redux/reducers/authReducer";
 import Alert from "@mui/material/Alert";
 
 export const Login = () => {
@@ -19,19 +19,26 @@ export const Login = () => {
 
   const [dimension, setdimension] = useState({ width: "", htype: "h3" });
   const [user, setUser] = useState(false);
-  const [validation, setvalidation] = useState("");
+  
 
-  const [signUpData, setSingnUpData] = useState({
+
+
+  //sign up
+
+  const [signUpvalidation, setSignUpvalidation] = useState({
     error: false,
     msg: "",
     show: false,
   });
+
+  const [signUpData, setSingnUpData] = useState({});
   const handleSignUp = () => {
     dispatch(createAuthData(signUpData)).then(({ payload }) => {
+      
       if (payload === "success") {
-        {
-          setvalidation({
-            ...validation,
+        
+          setSignUpvalidation({
+            ...signUpvalidation,
             msg: payload,
             show: true,
             error: false,
@@ -43,10 +50,45 @@ export const Login = () => {
           
           return;
         }
+      
+
+      setSignUpvalidation({ ...signUpvalidation, msg: payload, show: true, error: true });
+      
+    });
+  };
+  
+
+  //login
+  const [loginValidation, setLoginValidation] = useState({
+    error: false,
+    show: false,
+  });
+  const [loginData, setLoginData] = useState({});
+  const handleLogin = () => {
+    dispatch(postAuthData(loginData))
+    .then(({ payload }) => {
+
+      
+      if (payload.status === 200) {
+        
+          setLoginValidation({
+            ...loginValidation,
+            show: true,
+            error: false,
+          });
+          setTimeout(()=>{
+
+            dispatch(closeLoginPopUP())
+           
+            
+          },2000);
+          
+          
+          return;
+        
       }
 
-      setvalidation({ ...validation, msg: payload, show: true, error: true });
-      
+      setLoginValidation({ ...loginValidation, show: true, error: true });
     });
   };
   
@@ -75,6 +117,11 @@ export const Login = () => {
       setdimension({ ...dimension, width: "250px", htype: "h4" });
   }, [screenSize]);
 
+
+  useEffect(()=>{
+    setSignUpvalidation({...signUpvalidation,show:false})
+    setLoginValidation({...loginValidation,show:false})
+  },[signUpData,loginData])
   return (
     <div>
       <Modal
@@ -111,7 +158,10 @@ export const Login = () => {
                   </Typography>
 
                   <Typography
-                    onClick={() => setUser(false)}
+                    onClick={() => {
+                      setUser(false)
+                      setLoginValidation({...loginValidation,show:false})
+                      setSingnUpData({})}}
                     variant="h6"
                     sx={{ mt: 2, ml: 1, mb: 5, color: "#3B44F6" }}
                   >
@@ -154,11 +204,11 @@ export const Login = () => {
                   />
                 </Grid>
 
-                {validation.show ? (
+                {signUpvalidation.show ? (
                   <div style={{marginTop:'10px'}}>
-                    {validation.error ? (
+                    {signUpvalidation.error ? (
                       <Alert severity="warning">
-                        {validation.msg}
+                        {signUpvalidation.msg}
                       </Alert>
                     ) : (
                       <Alert severity="success">
@@ -173,7 +223,7 @@ export const Login = () => {
                 <Button
                   onClick={handleSignUp}
                   sx={{ mt: 3, mb: 3, backgroundColor: "#00081c" }}
-                  color={!validation.error?"success":'error'}
+                  color={!signUpvalidation.error?"success":'error'}
                   variant="contained"
                   fullWidth
                   size="large"
@@ -200,7 +250,10 @@ export const Login = () => {
                   </Typography>
 
                   <Typography
-                    onClick={() => setUser(true)}
+                    
+                    onClick={() => {
+                      setUser(true)
+                      setSignUpvalidation({...signUpvalidation,show:false})}}
                     variant="h6"
                     sx={{ mt: 2, ml: 1, mb: 5, color: "#3B44F6" }}
                   >
@@ -214,28 +267,49 @@ export const Login = () => {
                   }}
                 >
                   <TextField
-                    id="outlined-password-input"
+
                     label="Email"
                     type="email"
-                    autoComplete="current-password"
+                    autoComplete="current-email"
                     fullWidth
+                    onChange={(e) =>
+                      setLoginData({ ...loginData, email: e.target.value })
+                    }
                   />
                   <TextField
-                    id="outlined-password-input"
                     label="Password"
-                    type="text"
+                    type="Password"
                     autoComplete="current-password"
                     fullWidth
-                    helperText="Must contain at least  8 characters"
+                    onChange={(e) =>
+                      setLoginData({ ...loginData, password: e.target.value })
+                    }
                   />
                 </Grid>
 
+                {loginValidation.show ? (
+                  <div style={{marginTop:'10px'}}>
+                    {loginValidation.error ? (
+                      <Alert severity="error">
+                        Credentials Not Found
+                      </Alert>
+                    ) : (
+                      <Alert severity="success">
+                        Login Successfull
+                      </Alert>
+                    )}
+                  </div>
+                ) : (
+                  <></>
+                )}
+
                 <Button
                   sx={{ mt: 3, mb: 3, backgroundColor: "#00081c" }}
-                  color="success"
+                  color={!loginValidation.error?"success":'error'}
                   variant="contained"
                   fullWidth
                   size="large"
+                  onClick={handleLogin}
                 >
                   sign in
                 </Button>

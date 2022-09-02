@@ -8,7 +8,7 @@ import { Recent } from '../Components/recent';
 import { Topten } from '../Components/topten';
 import { Category } from '../Components/catagory';
 import { Box } from '@mui/material';
-import { postAuthData } from '../Redux/reducers/authReducer';
+
 
 const slideImages = [
   {
@@ -53,11 +53,7 @@ const dispatch=useDispatch()
 
 
 
-useEffect(()=>{
 
-  dispatch(postAuthData())
-
-},[])
 
     return (
     <Box sx={{ backgroundColor:"#ebf0f0"}}>

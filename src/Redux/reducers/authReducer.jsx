@@ -1,26 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import API from "../../api/config";
 
-var data = [];
-
 const postAuthData = createAsyncThunk("api/login", async (data) => {
-  API.get("products")
+  console.log('data',data);
+  return API.post("login", data)
     .then((res) => {
-      data = res.data;
+      res.data.status=200
+      return res.data
     })
-    .catch((err) => console.log(err));
+    .catch(() => {
+      const payload={status:401}
+      return payload
+    });
 });
 
 const createAuthData = createAsyncThunk("api/register", async (data) => {
   return API.post("register", data)
-    .then((res) => {
+    .then(() => {
       return "success";
     })
     .catch((err) => {
-        console.log(err)
       if (("err", err.response.status === 422)) {
         if (err.response.data.error.msg === "user already exist")
-        return "user already exist";
+          return "user already exist";
 
         return `invalid ${err.response.data.error.param}`;
       }
@@ -54,6 +56,15 @@ const authInfoSlice = createSlice({
       state.isLoading = false;
     },
     [createAuthData.rejected]: (state, a) => {
+      state.isLoading = false;
+    },
+    [postAuthData.pending]: (state, a) => {
+      state.isLoading = true;
+    },
+    [postAuthData.fulfilled]: (state, a) => {
+      state.isLoading = false;
+    },
+    [postAuthData.rejected]: (state, a) => {
       state.isLoading = false;
     },
   },
