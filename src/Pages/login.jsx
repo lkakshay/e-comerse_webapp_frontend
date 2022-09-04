@@ -45,7 +45,7 @@ export const Login = () => {
           });
           setTimeout(()=>{
             setUser(false)
-          },2000);
+          },1500);
           
           
           return;
@@ -81,8 +81,7 @@ export const Login = () => {
             dispatch(closeLoginPopUP())
            
             
-          },2000);
-          
+          },1500);
           
           return;
         
