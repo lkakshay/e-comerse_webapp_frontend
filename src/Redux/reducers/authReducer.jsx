@@ -63,9 +63,12 @@ const authInfoSlice = createSlice({
     },
     [postAuthData.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.authStatus = true;
-      state.userData.username = payload.name;
-      state.userData.token = payload.token;
+
+      if (payload.status === 200) {
+        state.authStatus = true;
+        state.userData.username = payload.name;
+        state.userData.token = payload.token;
+      }
     },
     [postAuthData.rejected]: (state) => {
       state.isLoading = false;
