@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import MediaqueryReducer from "../reducers/MediaqueryReducer";
 import authReducer from "../reducers/authReducer";
+import productReducer from "../reducers/productReducer";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import persistReducer from "redux-persist/es/persistReducer";
@@ -21,6 +22,7 @@ const userPersistConfig = {
 const rootReducer = combineReducers({
   MediaqueryReducer,
   authReducer: persistReducer(userPersistConfig, authReducer),
+  productReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
