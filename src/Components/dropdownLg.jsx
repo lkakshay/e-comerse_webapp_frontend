@@ -2,16 +2,6 @@ import React, { useState } from "react";
 import { Box, Grid, List, ListItem, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const data = [
-  "MOBILE",
-  "FASHION",
-  "ELECTRONICS",
-  "HOME",
-  "SPORTS",
-  "BEAUTY",
-  "TOYS & BABY",
-];
-
 export const DropdownLg = () => {
   const [heading, setHeading] = useState([
     {
@@ -68,19 +58,20 @@ export const DropdownLg = () => {
       ],
     },
     {
-      name: "Automotive",
+      name: "Jewellery",
       display: "none",
       border: "none",
       subs: [
         {
-          name: "Accessories & Spare parts",
-          path: "Automotive >> Accessories & Spare parts",
+          name: "Rings",
+          path: "Jewellery >> Rings",
         },
         {
-          name: "Car & Bike Accessories",
-          path: "Automotive >> Car & Bike Accessories",
+          name: "Jewellery Sets",
+          path: "Jewellery >> Jewellery Sets",
         },
-        { name: "Car Accessories", path: "Automotive >> Car Accessories" },
+        { name: "Earrings", path: "Jewellery >> Earrings" },
+        { name: "Accessories", path: "Jewellery >> Accessories" },
       ],
     },
     {
