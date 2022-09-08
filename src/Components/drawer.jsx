@@ -3,24 +3,114 @@ import { Drawer, ListItemButton, ListItemIcon, ListItemText,Typography ,Box} fro
 import { List } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
 
 const heading =[
-    {name:"MEN",display:"none",border:"none",subs:["Mens Clothing","Watches","Mens Sports","Footwear"]},
-    {name:"WOMEN",display:"none",border:"none",subs:["Women Clothing","Watches","Mens Sports","Footwear"]},
-    {name:"KIDS",display:"none",border:"none",subs:["Boys Clothing ","Girls Clothing","Footwear","Toys","Accessories"]},
-    {name:"ELECTRONICS",display:"none",border:"none",subs:["Mobile","Laptop","Smartwatches","Tablet","Earphones"]},
-    {name:"SPORTS",display:"none",border:"none",subs:["Sports shoes","Sportswear","Sports Gear","Supplements"]},
-    {name:"BEAUTY",display:"none",border:"none",subs:["Skin Care","Hair Care","Womens Hygiene","Oral Care"]},
-    {name:"APPLIANCES",display:"none",border:"none",subs:["For Bedroom","For Living Room","For Kitchen"]},
-
-   ]
+    {
+      name: "Clothing",
+      display: "none",
+      border: "none",
+      subs: [
+        { name: "For Men", path: "Clothing >> Men's Clothing" },
+        { name: "For Women ", path: "Clothing >> Women's Clothing" },
+        { name: "For Kids", path: "Clothing >> Kids' Clothing" },
+      ],
+    },
+    {
+      name: "Footwear",
+      display: "none",
+      border: "none",
+      subs: [
+        { name: "Kids Footwear", path: "Footwear >> Kids' & Infant Footwear" },
+        { name: " Men's Footwear", path: "Footwear >> Men's Footwear" },
+        { name: "Women`s Footwear", path: "Footwear >> Women's Footwear" },
+      ],
+    },
+    {
+      name: "Baby Care",
+      display: "none",
+      border: "none",
+      subs: [
+        { name: "Kids Gifts", path: "Baby Care >> Baby & Kids Gifts" },
+        { name: "Bath & Skin", path: "Baby Care >> Baby Bath & Skin" },
+        { name: "Baby Bedding", path: "Baby Care >> Baby Bedding" },
+        { name: "Infant Wear", path: "Baby Care >> Infant Wear" },
+      ],
+    },
+    {
+      name: "Personal Care",
+      display: "none",
+      border: "none",
+      subs: [
+        {
+          name: "Bath and Spa",
+          path: "Beauty and Personal Care >> Bath and Spa",
+        },
+        {
+          name: "Skin Care",
+          path: "Beauty and Personal Care >> Body and Skin Care",
+        },
+        {
+          name: "Combos and Kits",
+          path: "Beauty and Personal Care >> Combos and Kits",
+        },
+        { name: "Hair Care", path: "Beauty and Personal Care >> Hair Care" },
+        { name: "Makeup", path: "Beauty and Personal Care >> Makeup" },
+        { name: "Fragrances", path: "Beauty and Personal Care >> Fragrances" },
+      ],
+    },
+    {
+      name: "Jewellery",
+      display: "none",
+      border: "none",
+      subs: [
+        {
+          name: "Rings",
+          path: "Jewellery >> Rings",
+        },
+        {
+          name: "Jewellery Sets",
+          path: "Jewellery >> Jewellery Sets",
+        },
+        { name: "Earrings", path: "Jewellery >> Earrings" },
+        { name: "Accessories", path: "Jewellery >> Accessories" },
+      ],
+    },
+    {
+      name: "Home Furnishing",
+      display: "none",
+      border: "none",
+      subs: [
+        {
+          name: "Bed Linen",
+          path: "Home Furnishing >> Bed Linen",
+        },
+        {
+          name: "Curtains & Accessories",
+          path: "Home Furnishing >> Curtains & Accessories",
+        },
+        {
+          name: "Living Room Furnishing ",
+          path: "Home Furnishing >> Living Room Furnishing",
+        },
+        {
+          name: "Floor Coverings",
+          path: "Home Furnishing >> Floor Coverings",
+        },
+        {
+          name: "Living",
+          path: "Home Furnishing >> Living",
+        },
+      ],
+    },
+  ]
 
 
 
 export const DrawerComponent=({setopenDrawer,openDrawer})=>{
 
     
-    
+    const navigate=useNavigate()
     
    
     const [subcat,setSubcat]=useState([])
@@ -82,8 +172,12 @@ export const DrawerComponent=({setopenDrawer,openDrawer})=>{
                       
                     }}>
                         <ListItemIcon>
-                            <ListItemText sx={{color:"#00081c"}}>
-                                {e}
+                            <ListItemText sx={{color:"#00081c"}}
+                            onClick={() => {
+                                navigate(`/products?category=${e.path}`)
+                                setopenDrawer(false)
+                              }}>
+                                {e.name}
                             </ListItemText>
                         </ListItemIcon>
                     </ListItemButton>
