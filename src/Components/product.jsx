@@ -29,8 +29,8 @@ export const Product = ({ data }) => {
         src={data.image[0]}
       />
       <Stack spacing={1} sx={{ px: "7%", py: "3%" }}>
-        <Typography sx={{ fontSize: "16px", fontWeight: 500 }}>
-          {data.name}
+        <Typography sx={{ fontSize: "16px", fontWeight: 500 , height:'50px'}}>
+          {data.name.slice(0,37)}
         </Typography>
         <Rating
           name="half-rating-read"

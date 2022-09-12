@@ -26,7 +26,7 @@ export const Singleproduct = () => {
     API.get("products/single", { params: { id } })
       .then((res) => {
         setData(res.data);
-        console.log('res.data',res.data);
+        console.log("res.data", res.data);
       })
 
       .catch((e) => {
@@ -44,7 +44,7 @@ export const Singleproduct = () => {
           md={12}
           lg={6}
           sx={{
-            my: 1,
+            my: 2,
             px: 1,
           }}
         >
@@ -66,34 +66,32 @@ export const Singleproduct = () => {
                   height: "auto",
                   aspectRatio: 1,
                 }}
-                   src={data.image?data.image[0]:''}
-               
+                src={data.image ? data.image[0] : ""}
               />
             </Box>
 
             <Grid container sx={{ p: 1 }}>
               {data.image?.map((el, i) => {
-
-                if(i>3)
-                return
-                return(
-                <Grid item xs={3} sx={{ p: 1 }} key={i}>
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "auto",
-                      aspectRatio: 1,
-                    }}
-                    src={el}
-                    alt="product image"
-                  />
-                </Grid>
-              )})}
+                if (i > 3) return;
+                return (
+                  <Grid item xs={3} sx={{ p: 1 }} key={i}>
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        aspectRatio: 1,
+                      }}
+                      src={el}
+                      alt="product image"
+                    />
+                  </Grid>
+                );
+              })}
             </Grid>
           </Box>
         </Grid>
-        <Grid item xs={12} md={12} sm={12} lg={6} sx={{ py: 1, px: 1 }}>
-          <Box sx={{ width: "100%", p: "3%", bgcolor: "background.paper" }}>
+        <Grid item xs={12} md={12} sm={12} lg={6} sx={{ py: 2, px: 1}}>
+          <Box sx={{ p: "3%", bgcolor: "background.paper" }}>
             <Box sx={{ px: 2, py: 1 }}>
               <Typography gutterBottom variant="h4">
                 {data.name}
@@ -196,7 +194,14 @@ export const Singleproduct = () => {
               </Button>
             </Box>
             <Box>
-            <Typography sx={{p:2}} gutterBottom color="text.secondary" variant="body2">{data.description}</Typography>
+              <Typography
+                sx={{ px: 2 }}
+                gutterBottom
+                color="text.secondary"
+                variant="body2"
+              >
+                {data.description}
+              </Typography>
             </Box>
           </Box>
         </Grid>
