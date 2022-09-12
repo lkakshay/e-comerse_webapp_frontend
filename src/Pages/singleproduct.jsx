@@ -1,8 +1,5 @@
 import React from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -16,11 +13,16 @@ import API from "../api/config";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { openLoginPopUP } from "../Redux/reducers/authReducer";
 
 export const Singleproduct = () => {
   const { id } = useParams();
 
   const [data, setData] = useState({});
+  const dispatch=useDispatch()
+  const {userData,authStatus}=useSelector((state)=>state.authReducer)
+ 
 
   useEffect(() => {
     API.get("products/single", { params: { id } })
@@ -33,6 +35,28 @@ export const Singleproduct = () => {
         console.log("e", e);
       });
   }, [id]);
+
+  const handleCart =(productId)=>{
+    
+
+    if(!authStatus)
+    dispatch(openLoginPopUP())
+
+  
+    API.post('cart/add',{
+      user_id:userData.userId,
+      product_id:productId,
+      count:1,
+      status:false
+    })
+    .then((res)=>{
+// console.log('res',res);
+    })
+
+    .catch((e)=>{
+      console.log('e',e);
+    })
+  }
 
   return (
     <React.Fragment>
@@ -90,7 +114,7 @@ export const Singleproduct = () => {
             </Grid>
           </Box>
         </Grid>
-        <Grid item xs={12} md={12} sm={12} lg={6} sx={{ py: 2, px: 1}}>
+        <Grid item xs={12} md={12} sm={12} lg={6} sx={{ py: 2, px: 1 }}>
           <Box sx={{ p: "3%", bgcolor: "background.paper" }}>
             <Box sx={{ px: 2, py: 1 }}>
               <Typography gutterBottom variant="h4">
@@ -189,6 +213,8 @@ export const Singleproduct = () => {
               <Button
                 sx={{ my: 2, py: 1, backgroundColor: "#00081c" }}
                 variant="contained"
+
+                onClick={()=>handleCart(data._id)}
               >
                 Add to cart
               </Button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -27,8 +27,22 @@ import ContentCut from "@mui/icons-material/ContentCut";
 import ContentCopy from "@mui/icons-material/ContentCopy";
 import ContentPaste from "@mui/icons-material/ContentPaste";
 import Cloud from "@mui/icons-material/Cloud";
+import { useEffect } from "react";
+import API from "../api/config";
+import { useSelector } from "react-redux";
 
 export const Cart = () => {
+  const { userId } = useSelector((state) => state.authReducer.userData);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    API.get("cart/items", { params: { id: userId } })
+      .then((res) => {
+        console.log(res.data)
+        setData(res.data);
+      })
+      .catch((e) => console.log(e));
+  }, [userId]);
   return (
     <React.Fragment>
       <Grid container sx={{ backgroundColor: "#ebf0f0", px: 1 }}>
@@ -43,13 +57,14 @@ export const Cart = () => {
             px: 1,
           }}
         >
-          <Grid container sx={{ backgroundColor: "white" }}>
+          {data?.map((e)=>(
+            <Grid container sx={{ backgroundColor: "white" }} key={e._id} >
             <Grid xs={12} sm={12} md={12} lg={9}>
               <Grid container>
                 <Grid xs={3} sx={{ p: "2%" }}>
                   <img
                     style={{ width: "100%", aspectRatio: 1 }}
-                    src="https://rukminim1.flixcart.com/image/224/224/l15bxjk0/headphone/h/p/w/rma2105-realme-original-imagcsfvjhsygg6x.jpeg?q=90"
+                    src={e.product_id.image[0]}
                   />
                   <div
                     style={{
@@ -82,8 +97,8 @@ export const Cart = () => {
 
                     <Rating
                       name="half-rating-read"
-                      defaultValue={2.5}
-                      precision={0.5}
+                      value={e.product_id.rating}
+                      precision={0.1}
                       readOnly
                       size="small"
                     />
@@ -96,12 +111,14 @@ export const Cart = () => {
                           py: 2,
                         }}
                       >
-                        ₹ 356
+                        ₹ {e.product_id.discount}
                       </Typography>
                       <Typography
                         sx={{ fontSize: "16px", px: 1, py: 2, color: "green" }}
                       >
-                        20%
+                       {Math.floor(
+                    ((e.product_id.price - e.product_id.discount) / e.product_id.price) * 100
+                  )}%
                       </Typography>
                     </Box>
 
@@ -142,13 +159,16 @@ export const Cart = () => {
               </Box>
             </Grid>
           </Grid>
+          ))}
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} sx={{ py: 1, px: 1 }}>
-          <Box >
-            <Paper sx={{  maxWidth: "100%" }}>
+          <Box>
+            <Paper sx={{ maxWidth: "100%" }}>
               <MenuList>
                 <MenuItem>
-                  <ListItemText sx={{fontWeight:900}}>PRICE DETAILS</ListItemText>
+                  <ListItemText sx={{ fontWeight: 900 }}>
+                    PRICE DETAILS
+                  </ListItemText>
                 </MenuItem>
                 <MenuItem>
                   <ListItemText>Cut</ListItemText>

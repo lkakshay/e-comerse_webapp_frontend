@@ -68,6 +68,8 @@ const authInfoSlice = createSlice({
         state.authStatus = true;
         state.userData.username = payload.name;
         state.userData.token = payload.token;
+        state.userData.userId = payload.userId;
+        
       }
     },
     [postAuthData.rejected]: (state) => {
@@ -80,35 +82,4 @@ export const { openLoginPopUP, closeLoginPopUP } = authInfoSlice.actions;
 export { postAuthData, createAuthData };
 export default authInfoSlice.reducer;
 
-// let obj={}
-// for(let i=0;i<data.length;i++){
 
-//  let a=data[i].category
-
-//  if(obj[a]===undefined){
-//      obj[a]={}
-//  }
-
-// }
-
-// console.log(obj)
-
-// for(let i=0;i<data.length;i++){
-
-//  let a=data[i].category
-//  let b=data[i].sub_category
-
-//  for( let x in obj){
-
-//      if(x==a){
-//          if(obj[x][b]===undefined){
-//              obj[x][b]=1
-//          }
-//          else{
-//              obj[x][b]+=1
-//          }
-//      }
-
-//  }
-
-// }
