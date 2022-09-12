@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import { getProductData } from "../Redux/reducers/productReducer";
 import Pagination from "@mui/material/Pagination";
 import { Sort } from "../Components/sort";
-import { Filter } from "../Components/filter";
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -43,7 +43,7 @@ export const Products = () => {
       <Grid container sx={{ backgroundColor: "#ebf0f0" }}>
         <Grid item xs={12} sm={12} md={12} lg={2.5} sx={{ my: 1, px: 1 }}>
           <Sort />
-          <Filter />
+          
         </Grid>
         <Grid
           item

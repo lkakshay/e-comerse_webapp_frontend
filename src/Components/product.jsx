@@ -4,10 +4,18 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Stack, Rating, Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { openLoginPopUP } from "../Redux/reducers/authReducer";
 
 export const Product = ({ data }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const authStatus = useSelector((state) => state.authReducer.authStatus);
   return (
     <Card
+      onClick={() => navigate("/product/" + data._id)}
       sx={{
         width: "100%",
         m: "5%",
@@ -22,7 +30,7 @@ export const Product = ({ data }) => {
       />
       <Stack spacing={1} sx={{ px: "7%", py: "3%" }}>
         <Typography sx={{ fontSize: "16px", fontWeight: 500 }}>
-         {data.name}
+          {data.name}
         </Typography>
         <Rating
           name="half-rating-read"
@@ -50,6 +58,14 @@ export const Product = ({ data }) => {
       </Stack>
       <CardActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
         <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (authStatus) {
+             //route
+              return;
+            }
+            dispatch(openLoginPopUP());
+          }}
           sx={{
             width: "50%",
             backgroundColor: "#00081c",
@@ -63,6 +79,15 @@ export const Product = ({ data }) => {
           BUY NOW
         </Button>
         <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            if (authStatus) {
+              //api call
+
+              return;
+            }
+            dispatch(openLoginPopUP());
+          }}
           sx={{
             width: "50%",
             backgroundColor: "#00081c",

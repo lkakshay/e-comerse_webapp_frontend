@@ -10,10 +10,30 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { Rating } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import {Recent} from '../Components/recent'
+import { Recent } from "../Components/recent";
 
-let data = new Array(4).fill(0);
+import API from "../api/config";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+
 export const Singleproduct = () => {
+  const { id } = useParams();
+
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    API.get("products/single", { params: { id } })
+      .then((res) => {
+        setData(res.data);
+        console.log('res.data',res.data);
+      })
+
+      .catch((e) => {
+        console.log("e", e);
+      });
+  }, [id]);
+
   return (
     <React.Fragment>
       <Grid container sx={{ backgroundColor: "#ebf0f0", px: 1 }}>
@@ -46,33 +66,37 @@ export const Singleproduct = () => {
                   height: "auto",
                   aspectRatio: 1,
                 }}
-                src="https://m.media-amazon.com/images/I/41k73fSAoZL._UL1440_.jpg"
-                alt=""
+                   src={data.image?data.image[0]:''}
+               
               />
             </Box>
 
-            <Grid container sx={{p:1}}>
-              {data?.map((el, i) => (
-                <Grid item xs={3} sx={{p:1}}>
+            <Grid container sx={{ p: 1 }}>
+              {data.image?.map((el, i) => {
+
+                if(i>3)
+                return
+                return(
+                <Grid item xs={3} sx={{ p: 1 }} key={i}>
                   <img
                     style={{
                       width: "100%",
                       height: "auto",
                       aspectRatio: 1,
                     }}
-                    src="https://m.media-amazon.com/images/I/41k73fSAoZL._UL1440_.jpg"
-                    alt=""
+                    src={el}
+                    alt="product image"
                   />
                 </Grid>
-              ))}
+              )})}
             </Grid>
           </Box>
         </Grid>
-        <Grid container xs={12} md={12} sm={12} lg={6} sx={{ py: 1, px: 1 }}>
+        <Grid item xs={12} md={12} sm={12} lg={6} sx={{ py: 1, px: 1 }}>
           <Box sx={{ width: "100%", p: "3%", bgcolor: "background.paper" }}>
             <Box sx={{ px: 2, py: 1 }}>
               <Typography gutterBottom variant="h4">
-                Toothbrush
+                {data.name}
               </Typography>
 
               <Rating
@@ -86,14 +110,28 @@ export const Singleproduct = () => {
                 <Typography
                   sx={{ fontSize: "26px", fontWeight: "900", px: 1, py: 2 }}
                 >
-                  ₹ 356
+                  ₹ {data.discount}
                 </Typography>
                 <Typography
                   sx={{ fontSize: "16px", px: 1, py: 2, color: "green" }}
                 >
-                  20%
+                  {Math.floor(
+                    ((data.price - data.discount) / data.price) * 100
+                  )}
+                  %
                 </Typography>
               </Box>
+              <Typography
+                sx={{
+                  fontWeight: "00",
+                  fontSize: "16px",
+                  textDecoration: "line-through",
+                  pl: 1,
+                }}
+                color="black"
+              >
+                {data.price}
+              </Typography>
             </Box>
             <Box sx={{ p: 1 }}>
               <Divider variant="middle" sx={{ mb: 2 }} />
@@ -140,21 +178,7 @@ export const Singleproduct = () => {
               <Divider variant="middle" sx={{ mt: 2 }} />
             </Box>
             <Box sx={{ m: 2 }}>
-              <FormControl>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-row-radio-buttons-group-label"
-                  name="row-radio-buttons-group"
-                >
-                  {data?.map((el, i) => (
-                    <FormControlLabel
-                      value={i}
-                      control={<Radio size="medium" color="success" />}
-                      label="Female"
-                    />
-                  ))}
-                </RadioGroup>
-              </FormControl>
+              {data.isPrime ? <Typography>prime</Typography> : <></>}
             </Box>
             <Box sx={{ mt: 3, m: 1, mb: 1 }}>
               <Button
@@ -171,11 +195,14 @@ export const Singleproduct = () => {
                 Add to cart
               </Button>
             </Box>
+            <Box>
+            <Typography sx={{p:2}} gutterBottom color="text.secondary" variant="body2">{data.description}</Typography>
+            </Box>
           </Box>
         </Grid>
       </Grid>
 
-      <Recent/>
+      <Recent />
     </React.Fragment>
   );
 };
