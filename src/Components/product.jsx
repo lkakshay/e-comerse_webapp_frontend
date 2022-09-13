@@ -6,13 +6,10 @@ import Typography from "@mui/material/Typography";
 import { Stack, Rating, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { openLoginPopUP } from "../Redux/reducers/authReducer";
 
 export const Product = ({ data }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const authStatus = useSelector((state) => state.authReducer.authStatus);
   return (
     <Card
       onClick={() => navigate("/product/" + data._id)}
@@ -56,49 +53,21 @@ export const Product = ({ data }) => {
           </Typography>
         </Box>
       </Stack>
-      <CardActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
+      <CardActions >
+       
         <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            if (authStatus) {
-             //route
-              return;
-            }
-            dispatch(openLoginPopUP());
-          }}
+          
           sx={{
-            width: "50%",
+            width: "100%",
             backgroundColor: "#00081c",
-            fontSize: "10px",
-            py: "5%",
+            fontSize: "12px",
+            py: "3%",
             fontWeight: "600",
           }}
           size="small"
           variant="contained"
         >
-          BUY NOW
-        </Button>
-        <Button
-          onClick={(e) => {
-            e.stopPropagation();
-            if (authStatus) {
-              //api call
-
-              return;
-            }
-            dispatch(openLoginPopUP());
-          }}
-          sx={{
-            width: "50%",
-            backgroundColor: "#00081c",
-            fontSize: "10px",
-            py: "5%",
-            fontWeight: "600",
-          }}
-          size="small"
-          variant="contained"
-        >
-          ADD TO CART
+          SHOW DETAILS
         </Button>
       </CardActions>
     </Card>

@@ -68,7 +68,6 @@ const authInfoSlice = createSlice({
         state.authStatus = true;
         state.userData.username = payload.name;
         state.userData.token = payload.token;
-        state.userData.userId = payload.userId;
         
       }
     },

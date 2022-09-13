@@ -10,22 +10,27 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import { Recent } from "../Components/recent";
 
 import API from "../api/config";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openLoginPopUP } from "../Redux/reducers/authReducer";
+import { token } from "../utils/helpers/tooken";
 
 export const Singleproduct = () => {
   const { id } = useParams();
-
+ const navigate=useNavigate()
   const [data, setData] = useState({});
-  const dispatch=useDispatch()
-  const {userData,authStatus}=useSelector((state)=>state.authReducer)
- 
+  const dispatch = useDispatch();
+  const {authStatus } = useSelector((state) => state.authReducer);
 
-  useEffect(() => {
-    API.get("products/single", { params: { id } })
+  const fetchData = () => {
+    const jwt = token();
+
+    API.get("products/single", {
+      headers: { Authorization: `Bearer ${jwt}` },
+      params: { id },
+    })
       .then((res) => {
         setData(res.data);
         console.log("res.data", res.data);
@@ -34,29 +39,29 @@ export const Singleproduct = () => {
       .catch((e) => {
         console.log("e", e);
       });
-  }, [id]);
+  };
 
-  const handleCart =(productId)=>{
-    
+  useEffect(() => {
+    fetchData();
+  }, [id, authStatus]);
 
-    if(!authStatus)
-    dispatch(openLoginPopUP())
+  const handleCart = (productId) => {
+    const jwt = token();
+    if (!authStatus) dispatch(openLoginPopUP());
 
-  
-    API.post('cart/add',{
-      user_id:userData.userId,
-      product_id:productId,
-      count:1,
-      status:false
-    })
-    .then((res)=>{
-// console.log('res',res);
-    })
+    API.post("cart/add", {
+      product_id: productId,
+      count: 1,
+      status: false,
+    }, {headers: { Authorization: `Bearer ${jwt}` }})
+      .then((res) => {
+        fetchData()
+      })
 
-    .catch((e)=>{
-      console.log('e',e);
-    })
-  }
+      .catch((e) => {
+        console.log("e", e);
+      });
+  };
 
   return (
     <React.Fragment>
@@ -210,14 +215,20 @@ export const Singleproduct = () => {
                 {" "}
                 Buy Now
               </Button>
-              <Button
+              {data.cartStatus?<Button
                 sx={{ my: 2, py: 1, backgroundColor: "#00081c" }}
                 variant="contained"
-
-                onClick={()=>handleCart(data._id)}
+                onClick={() => navigate('/cart')}
               >
-                Add to cart
-              </Button>
+                Go to cart
+              </Button>:
+              <Button
+              sx={{ my: 2, py: 1, backgroundColor: "#00081c" }}
+              variant="contained"
+              onClick={() => handleCart(data._id)}
+            >
+              Add to cart
+            </Button>}
             </Box>
             <Box>
               <Typography

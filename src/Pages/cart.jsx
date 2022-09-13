@@ -59,9 +59,9 @@ export const Cart = () => {
         >
           {data?.map((e)=>(
             <Grid container sx={{ backgroundColor: "white" }} key={e._id} >
-            <Grid xs={12} sm={12} md={12} lg={9}>
+            <Grid item xs={12} sm={12} md={12} lg={9}>
               <Grid container>
-                <Grid xs={3} sx={{ p: "2%" }}>
+                <Grid item xs={3} sx={{ p: "2%" }}>
                   <img
                     style={{ width: "100%", aspectRatio: 1 }}
                     src={e.product_id.image[0]}
@@ -85,7 +85,7 @@ export const Cart = () => {
                     </div>
                   </div>
                 </Grid>
-                <Grid xs={9}>
+                <Grid item xs={9}>
                   <Box sx={{ px: 2, py: 1 }}>
                     <Typography
                       gutterBottom
@@ -146,7 +146,7 @@ export const Cart = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid xs={12} sm={12} md={12} lg={3}>
+            <Grid item xs={12} sm={12} md={12} lg={3}>
               <Box sx={{ p: 2 }}>
                 <Typography variant="body" sx={{ fontSize: "16px", px: 1 }}>
                   Delivery by Sun Aug 28
