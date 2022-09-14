@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import API from "../../api/config";
 
 const postAuthData = createAsyncThunk("api/login", async (data) => {
-  console.log("data", data);
   return API.post("login", data)
     .then((res) => {
       res.data.status = 200;

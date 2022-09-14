@@ -4,6 +4,7 @@ import API from "../../api/config";
 import { token } from "../../utils/helpers/tooken";
 
 const getCartData = createAsyncThunk("api/cartdata", async () => {
+
   return API.get("cart/items", {
     headers: { Authorization: `Bearer ${token()}` },
   })

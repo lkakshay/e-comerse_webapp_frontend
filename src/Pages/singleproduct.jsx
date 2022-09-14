@@ -126,7 +126,7 @@ export const Singleproduct = () => {
 
               <Rating
                 name="half-rating-read"
-                defaultValue={2.5}
+                value={data.rating ? data.rating: 0}
                 precision={0.5}
                 readOnly
                 size="medium"
@@ -209,8 +209,9 @@ export const Singleproduct = () => {
               <Button
                 sx={{ mx: 1, py: 1, backgroundColor: "#00081c" }}
                 variant="contained"
+                onClick={()=>navigate('/singlecart/'+data._id)}
               >
-                {" "}
+                
                 Buy Now
               </Button>
               {data.cartStatus?<Button

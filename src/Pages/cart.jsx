@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { Rating } from "@mui/material";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import { Recent } from "../Components/recent";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -21,30 +17,35 @@ import Paper from "@mui/material/Paper";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
 
-
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartData, editAndUpdateCart,getLaterData ,deleteAndUpdateCart} from "../Redux/reducers/cartReducer";
+import {
+  getCartData,
+  editAndUpdateCart,
+  getLaterData,
+  deleteAndUpdateCart,
+} from "../Redux/reducers/cartReducer";
 import { Bill } from "../utils/helpers/bill";
-
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
-  const {cartData,laterData} = useSelector((state) => state.cartReducer);
+  const { cartData, laterData } = useSelector((state) => state.cartReducer);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
 
   const [bill, setBill] = useState({});
   useEffect(() => {
     dispatch(getCartData());
-    dispatch(getLaterData())
+    dispatch(getLaterData());
   }, []);
 
   useEffect(() => {
-    if (cartData.length !== 0) {
-      setBill(Bill(cartData));
+    if (cartData) {
+      if (cartData.length !== 0) {
+        setBill(Bill(cartData));
+      }
     }
   }, [cartData]);
-
 
   return (
     <React.Fragment>
@@ -61,6 +62,26 @@ export const Cart = () => {
           }}
         >
           <div>
+            {cartData.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "30px 10px" }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 900,
+                    fontFamily: "sans-serif",
+                    fontSize: "28px",
+                  }}
+                >
+                  Your cart is empty!
+                </Typography>
+                <Typography sx={{ color: "00081c" }}
+                onClick={()=>navigate('/')}>
+                  continue shoping
+                </Typography>
+              </div>
+            ) : (
+              <></>
+            )}
             {cartData?.map((e) => (
               <Grid container sx={{ backgroundColor: "white" }} key={e._id}>
                 <Grid item xs={12} sm={12} md={12} lg={9}>
@@ -69,6 +90,7 @@ export const Cart = () => {
                       <img
                         style={{ width: "100%", aspectRatio: 1 }}
                         src={e.product_id.image[0]}
+                        onClick={()=>navigate("/product/"+e.product_id._id)}
                       />
                       <div
                         style={{
@@ -139,6 +161,7 @@ export const Cart = () => {
                             size="small"
                             variant="contained"
                             sx={{ backgroundColor: "#00081c" }}
+                            onClick={()=>navigate('/singlecart/'+e.product_id._id)}
                           >
                             BUY NOW
                           </Button>
@@ -146,7 +169,7 @@ export const Cart = () => {
                             size="small"
                             variant="contained"
                             sx={{ backgroundColor: "#00081c", m: 1 }}
-                            onClick={()=>dispatch(deleteAndUpdateCart(e._id))}
+                            onClick={() => dispatch(deleteAndUpdateCart(e._id))}
                           >
                             remove
                           </Button>
@@ -154,7 +177,14 @@ export const Cart = () => {
                             size="small"
                             variant="contained"
                             sx={{ backgroundColor: "#00081c" }}
-                            onClick={()=>dispatch(editAndUpdateCart({id:e._id,data:{later:true}}))}
+                            onClick={() =>
+                              dispatch(
+                                editAndUpdateCart({
+                                  id: e._id,
+                                  data: { later: true },
+                                })
+                              )
+                            }
                           >
                             save for later
                           </Button>
@@ -184,7 +214,7 @@ export const Cart = () => {
               variant="body2"
               sx={{ fontSize: "20px", fontWeight: 600, padding: "6px 10px" }}
             >
-              Saved for later
+              Saved for later({laterData.length})
             </Typography>
             {laterData?.map((e) => (
               <Grid container sx={{ backgroundColor: "white" }} key={e._id}>
@@ -194,6 +224,7 @@ export const Cart = () => {
                       <img
                         style={{ width: "100%", aspectRatio: 1 }}
                         src={e.product_id.image[0]}
+                        onClick={()=>navigate("/product/"+e.product_id._id)}
                       />
                       <div
                         style={{
@@ -260,7 +291,7 @@ export const Cart = () => {
                             size="small"
                             variant="contained"
                             sx={{ backgroundColor: "#00081c", m: 1 }}
-                            onClick={()=>dispatch(deleteAndUpdateCart(e._id))}
+                            onClick={() => dispatch(deleteAndUpdateCart(e._id))}
                           >
                             remove
                           </Button>
@@ -268,7 +299,14 @@ export const Cart = () => {
                             size="small"
                             variant="contained"
                             sx={{ backgroundColor: "#00081c" }}
-                            onClick={()=>dispatch(editAndUpdateCart({id:e._id,data:{later:false}}))}
+                            onClick={() =>
+                              dispatch(
+                                editAndUpdateCart({
+                                  id: e._id,
+                                  data: { later: false },
+                                })
+                              )
+                            }
                           >
                             move to cart
                           </Button>
@@ -283,71 +321,88 @@ export const Cart = () => {
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={4} sx={{ py: 1, px: 1 }}>
-          <Box>
-            <Paper sx={{ maxWidth: "100%" }}>
-              <MenuList>
-                <MenuItem>
-                  <ListItemText sx={{ fontWeight: 900 }}>
-                    PRICE DETAILS
-                  </ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemText>
-                    {bill.count === 1
-                      ? `Price (${bill.count} item)`
-                      : `Price (${bill.count} items)`}
-                  </ListItemText>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: "600", fontSize: "16px" }}
-                  >
-                    ₹ {bill.amount}
-                  </Typography>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemText>Disount</ListItemText>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: "600", fontSize: "14px", color: "green" }}
-                  >
-                    -₹{bill.discount}
-                  </Typography>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemText>Delivery charge</ListItemText>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: "600", fontSize: "14px", color: "green" }}
-                  >
-                    FREE
-                  </Typography>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                  <ListItemText>Total Amount </ListItemText>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: "600", fontSize: "18px" }}
-                  >
-                    ₹ {bill.total}
-                  </Typography>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                  <ListItemText
-                    sx={{ fontWeight: "600", fontSize: "12px", color: "green" }}
-                  >
-                    You will save ₹{bill.discount} on this order
-                  </ListItemText>
-                </MenuItem>
-              </MenuList>
-              <Button color="success" fullWidth variant="contained">
-                checkout
-              </Button>
-            </Paper>
-          </Box>
+          {cartData.length !== 0 ? (
+            <Box>
+              <Paper sx={{ maxWidth: "100%" }}>
+                <MenuList>
+                  <MenuItem>
+                    <ListItemText sx={{ fontWeight: 900 }}>
+                      PRICE DETAILS
+                    </ListItemText>
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemText>
+                      {bill.count === 1
+                        ? `Price (${bill.count} item)`
+                        : `Price (${bill.count} items)`}
+                    </ListItemText>
+                    <Typography
+                      variant="body2"
+                      sx={{ fontWeight: "600", fontSize: "16px" }}
+                    >
+                      ₹ {bill.amount}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemText>Discount</ListItemText>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontWeight: "600",
+                        fontSize: "14px",
+                        color: "green",
+                      }}
+                    >
+                      -₹{bill.discount}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemText>Delivery charge</ListItemText>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontWeight: "600",
+                        fontSize: "14px",
+                        color: "green",
+                      }}
+                    >
+                      FREE
+                    </Typography>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem>
+                    <ListItemText>Total Amount </ListItemText>
+                    <Typography
+                      variant="body2"
+                      sx={{ fontWeight: "600", fontSize: "18px" }}
+                    >
+                      ₹ {bill.total}
+                    </Typography>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem>
+                    <ListItemText
+                      sx={{
+                        fontWeight: "600",
+                        fontSize: "12px",
+                        color: "green",
+                      }}
+                    >
+                      You will save ₹{bill.discount} on this order
+                    </ListItemText>
+                  </MenuItem>
+                </MenuList>
+                <Button sx={{backgroundColor: "#00081c" }} color="success" fullWidth variant="contained">
+                  checkout
+                </Button>
+              </Paper>
+            </Box>
+          ) : (
+            <></>
+          )}
         </Grid>
       </Grid>
+      <div style={{height:'600px',backgroundColor: "#ebf0f0"}}></div>
     </React.Fragment>
   );
 };
