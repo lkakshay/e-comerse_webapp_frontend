@@ -51,8 +51,6 @@ export const Singleproduct = () => {
 
     API.post("cart/add", {
       product_id: productId,
-      count: 1,
-      status: false,
     }, {headers: { Authorization: `Bearer ${jwt}` }})
       .then((res) => {
         fetchData()

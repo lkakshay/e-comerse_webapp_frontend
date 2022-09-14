@@ -28,7 +28,7 @@ const productInfoSlice = createSlice({
       state.isError = false;
     },
     [getProductData.fulfilled]: (state, { payload }) => {
-        console.log('payload',payload);
+      state.isLoading = false;
       state.data = payload.data;
       state.totalPages = payload.totalPages;
       state.isError = false;

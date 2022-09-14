@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import MediaqueryReducer from "../reducers/MediaqueryReducer";
 import authReducer from "../reducers/authReducer";
 import productReducer from "../reducers/productReducer";
+import cartReducer from "../reducers/cartReducer";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import persistReducer from "redux-persist/es/persistReducer";
@@ -11,7 +12,7 @@ import sessionStorage from "redux-persist/es/storage/session";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ['MediaqueryReducer',"authReducer"]
+  blacklist: ['MediaqueryReducer',"authReducer","cartReducer"]
 };
 
 const userPersistConfig = {
@@ -22,7 +23,8 @@ const userPersistConfig = {
 const rootReducer = combineReducers({
   MediaqueryReducer,
   authReducer: persistReducer(userPersistConfig, authReducer),
-  productReducer
+  productReducer,
+  cartReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

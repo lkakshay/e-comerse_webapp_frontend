@@ -29,20 +29,26 @@ import ContentPaste from "@mui/icons-material/ContentPaste";
 import Cloud from "@mui/icons-material/Cloud";
 import { useEffect } from "react";
 import API from "../api/config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartData } from "../Redux/reducers/cartReducer";
+import { Bill } from "../utils/helpers/bill";
 
 export const Cart = () => {
-  const { userId } = useSelector((state) => state.authReducer.userData);
-  const [data, setData] = useState([]);
+ const data=useSelector((state)=>state.cartReducer.data)
+ const dispatch=useDispatch()
 
+ const [bill,setBill]=useState({})
   useEffect(() => {
-    API.get("cart/items", { params: { id: userId } })
-      .then((res) => {
-        console.log(res.data)
-        setData(res.data);
-      })
-      .catch((e) => console.log(e));
-  }, [userId]);
+    dispatch(getCartData())
+  }, []);
+
+  useEffect(()=>{
+
+    if(data.length!==0){
+        const bill=Bill(data)
+    }
+
+  },[data])
   return (
     <React.Fragment>
       <Grid container sx={{ backgroundColor: "#ebf0f0", px: 1 }}>
@@ -92,7 +98,7 @@ export const Cart = () => {
                       variant="h4"
                       sx={{ fontSize: "23px" }}
                     >
-                      Toothbrush
+                      {e.product_id.name}
                     </Typography>
 
                     <Rating
