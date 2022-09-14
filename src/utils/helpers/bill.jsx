@@ -7,10 +7,10 @@ let count=0
 
 arr.forEach(e => {
     count++
-    amount+= e.product_id.price
-    total+= e.product_id.discount
+    amount+= e.product_id.price*e.count
+    total+= e.product_id.discount*e.count
 });
 
-return {count,total,discount:amount-total}
+return {count,total,discount:amount-total,amount}
  
 }
